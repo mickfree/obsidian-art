@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
 const projects = [
 	{ title: 'Ojo de Madera', type: 'Pulsera · 2026', image: '/images/projects/ojo-de-madera/ojo_madera_04.webp', href: '/projects/ojo-de-madera', real: true },
@@ -7,20 +7,16 @@ const projects = [
 	{ title: 'Piedra Nocturna', type: 'Collar · Estudio', image: '/images/projects/piedra-nocturna.png' },
 	{ title: 'Sol de Bronce', type: 'Broche · Estudio', image: '/images/projects/sol-de-bronce.png' },
 	{ title: 'Humo y Raíz', type: 'Collar · Estudio', image: '/images/projects/humo-y-raiz.png' },
-	{ title: 'Materia I', type: 'Serie · Próximamente', image: '/images/projects/ojo-de-madera/ojo_madera_05.webp' },
-	{ title: 'Materia II', type: 'Serie · Próximamente', image: '/images/projects/ojo-de-madera/ojo_madera_06.webp' },
+	{ title: 'Ojo de Madera', type: 'Pulsera · 2026', image: '/images/projects/ojo-de-madera/ojo_madera_04.webp', href: '/projects/ojo-de-madera', real: true },
+	{ title: 'Siete Chakras', type: 'Pulsera · 2026', image: '/images/projects/siete-chakras/siete-chacras_04.webp', href: '/projects/siete-chakras', real: true },
 ];
 ---
 
-<!doctype html>
-<html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description" content="Catálogo de proyectos y colecciones de Obsidian Art." />
-		<title>Proyectos — Obsidian Art</title>
-	</head>
-	<body class="m-0 bg-[#f2f0eb] font-sans text-[#171714]">
+<BaseLayout
+	title="Proyectos — Obsidian Art"
+	description="Catálogo de proyectos y colecciones de Obsidian Art."
+	bodyClass="m-0 bg-[#f2f0eb] font-sans text-[#171714]"
+>
 		<main class="flex min-h-svh flex-col px-[clamp(20px,3vw,58px)] pt-6 pb-7 max-[760px]:px-4">
 			<header class="grid min-h-[58px] grid-cols-[1fr_auto_1fr] items-center text-[10px] tracking-[.16em] uppercase max-[760px]:grid-cols-[1fr_auto]">
 				<a class="font-display text-[15px] font-medium tracking-[.04em] text-inherit no-underline" href="/">Obsidian Art</a>
@@ -49,8 +45,7 @@ const projects = [
 				<a class="text-[10px] tracking-[.14em] text-[#5f5c56] uppercase no-underline max-[760px]:mt-6 max-[760px]:inline-block" href="/">Volver a Gallery</a>
 			</footer>
 		</main>
-	</body>
-</html>
+</BaseLayout>
 
 <style>
 	.catalog:has(.project-card:hover) .project-card:not(:hover),.catalog:has(.project-card:focus-within) .project-card:not(:focus-within) { opacity: .62; }
