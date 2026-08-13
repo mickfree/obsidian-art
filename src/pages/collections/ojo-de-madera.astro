@@ -1,0 +1,22 @@
+---
+import ProjectGallery from '../../components/ProjectGallery.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const gallery = [
+	{ src: '/images/collections/ojo-de-madera/ojo_madera_03.webp', alt: 'Pulsera Ojo de Madera vista de frente' },
+	{ src: '/images/collections/ojo-de-madera/ojo_madera_05.webp', alt: 'Detalle de las cuentas y acentos dorados' },
+	{ src: '/images/collections/ojo-de-madera/ojo_madera_01.webp', alt: 'Pulsera Ojo de Madera en perspectiva' },
+	{ src: '/images/collections/ojo-de-madera/ojo_madera_04.webp', alt: 'Vista cenital de la pulsera Ojo de Madera' },
+	{ src: '/images/collections/ojo-de-madera/ojo_madera_06.webp', alt: 'Perfil de las cuentas naturales' },
+	{ src: '/images/collections/ojo-de-madera/ojo_madera_02.webp', alt: 'Pulsera vista desde un ángulo bajo' },
+	{ src: '/images/collections/ojo-de-madera/ojo_madera_07.webp', alt: 'Vista frontal completa de la pulsera' },
+];
+---
+
+<BaseLayout
+	title="Ojo de Madera — Obsidian Art"
+	description="Ojo de Madera — joyería artesanal en ojo de tigre y detalles dorados."
+	bodyClass="m-0 bg-[#f5f4f1] font-sans text-[#24231f]"
+>
+	<ProjectGallery title="OJO DE MADERA" gallery={gallery} />
+</BaseLayout>
