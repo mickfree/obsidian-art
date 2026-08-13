@@ -2,9 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const navigation = [
-	{ label: 'Principal', href: '#principal' },
+	{ label: 'Principal', href: '/' },
 	{ label: 'Colecciones', href: '/collections' },
-	{ label: 'Materiales', href: '#materials' },
+	{ label: 'Materiales', href: '/materials' },
 	{ label: 'Info', href: '/info' },
 ];
 ---
@@ -200,7 +200,7 @@ const navigation = [
 	.collection-link {
 		margin: 0;
 		font-family: var(--font-display);
-		font-size: clamp(56px, 20vw, 82px);
+		font-size: clamp(56px, 65px, 82px);
 		font-weight: 300;
 		line-height: .95;
 		letter-spacing: -.065em;
