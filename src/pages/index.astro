@@ -12,22 +12,18 @@ const navigation = [
 <BaseLayout
 	title="Gallery — Obsidian Art"
 	description="Obsidian Art — archivo de obras, proyectos y exploraciones visuales."
+	bodyClass="home-body"
 >
-		<main
-			class="flex min-h-svh flex-col bg-paper min-[681px]:grid min-[681px]:grid-cols-[230px_minmax(0,1fr)] min-[1051px]:grid-cols-[minmax(250px,17.75vw)_minmax(0,61.5vw)_minmax(310px,1fr)]"
-		>
-			<aside
-				class="flex flex-col bg-paper-soft p-5 min-[681px]:min-h-svh min-[681px]:px-[clamp(28px,3.4vw,66px)] min-[681px]:pt-[34px] min-[681px]:pb-[42px]"
-				aria-label="Navegación principal"
-			>
-				<nav class="mt-2 min-[681px]:mt-48">
-					<ul class="m-0 grid list-none grid-cols-2 p-0 min-[681px]:block">
+		<main class="home-page">
+			<aside class="sidebar" aria-label="Navegación principal">
+				<nav class="site-nav">
+					<ul>
 						{navigation.map((item, index) => (
 							<li>
 								<a
 									class:list={[
-										'inline-block py-1 font-display text-xl leading-[1.45] uppercase transition-[color,transform] duration-200 hover:translate-x-1.5 hover:text-accent focus-visible:translate-x-1.5 focus-visible:text-accent motion-reduce:transition-none min-[681px]:text-[clamp(20px,1.4vw,28px)]',
-										index === 0 ? 'font-medium text-ink' : 'text-ink-muted',
+										'nav-link',
+										index === 0 && 'is-current',
 									]}
 									href={item.href}
 								>
@@ -38,79 +34,237 @@ const navigation = [
 					</ul>
 				</nav>
 
-				<div class="mt-auto hidden gap-[34px] text-sm text-ink-subtle min-[681px]:grid">
+				<div class="sidebar-meta">
 					<div>
-						<p class="mb-2 text-base text-ink">Contacto</p>
-						<a class="hover:text-accent focus-visible:text-accent" href="mailto:hello@obsidian.art">
+						<p class="meta-title">Contacto</p>
+						<a href="mailto:hello@obsidian.art">
 							Copiar email
 						</a>
 					</div>
 
 					<div>
-						<p class="mb-2 text-base text-ink">Social</p>
-						<p class="m-0 flex gap-[9px]">
-							<a class="hover:text-accent focus-visible:text-accent" href="#instagram">Instagram</a>
+						<p class="meta-title">Social</p>
+						<p class="social-links">
+							<a href="#instagram">Instagram</a>
 							<span>/</span>
-							<a class="hover:text-accent focus-visible:text-accent" href="#behance">Behance</a>
+							<a href="#behance">Behance</a>
 						</p>
 					</div>
 				</div>
 			</aside>
 
-			<section
-				class="group relative min-h-[70svh] overflow-hidden bg-artwork min-[681px]:min-h-svh"
-				aria-label="Obra destacada"
-			>
+			<section class="featured-artwork" aria-label="Obra destacada">
 				<img
-					class="block h-full min-h-[70svh] w-full object-cover object-center transition-transform duration-[1200ms] ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-[1.025] motion-reduce:transition-none min-[681px]:min-h-svh"
 					src="/images/wallpaper/principal_visual.webp"
 					alt="Composición abstracta de mármol negro con vetas doradas"
 				/>
-				<span
-					class="absolute top-1/2 left-0 z-10 -translate-y-1/2 rounded-none bg-paper px-5 py-3 font-display text-4xl font-medium tracking-[.04em] text-ink uppercase min-[681px]:px-7 min-[681px]:py-4 min-[681px]:text-7xl"
-				>
+				<span class="artwork-title">
 					Obsidian Art
 				</span>
-				<div
-					class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_62%,var(--color-artwork-overlay))]"
-					aria-hidden="true"
-				></div>
+				<div class="artwork-overlay" aria-hidden="true"></div>
 			</section>
 
 			<section
-				class="relative flex flex-col overflow-hidden bg-paper px-5 pt-11 pb-7 min-[681px]:col-span-2 min-[681px]:px-8 min-[681px]:pt-[62px] min-[681px]:pb-12 min-[1051px]:col-span-1 min-[1051px]:min-h-svh min-[1051px]:pt-[30px] min-[1051px]:pb-[42px]"
+				class="gallery-panel"
 				id="gallery"
 				aria-labelledby="gallery-title"
 			>
-				<header class="min-[681px]:max-w-[560px] min-[1051px]:max-w-none">
+				<header>
 					<a
 						href="/projects"
-						class="m-0 font-display text-[clamp(56px,20vw,82px)] leading-[.95] font-light tracking-[-.065em] min-[681px]:text-7xl"
+						class="collection-link"
 						id="gallery-title"
 					>
 						Colección
 					</a>
 				</header>
 
-				<div
-					class="relative z-10 mt-[68px] max-w-[340px] border-l border-divider pl-5 text-[clamp(14px,.84vw,16px)] leading-[1.62] min-[681px]:mt-[72px] min-[681px]:max-w-[560px] min-[1051px]:mt-[clamp(150px,25vh,260px)] min-[1051px]:max-w-[340px]"
-				>
-					<p class="m-0">
+				<div class="gallery-copy">
+					<p>
 						Un archivo de formas, materia y contraste. Cada pieza nace de explorar
 						lo que aparece cuando la luz toca la oscuridad.
 					</p>
-					<p class="mt-[38px] mb-0 text-ink-faint">
+					<p class="translation">
 						An archive of form, matter and contrast. Select the work to discover
 						the story behind its surface.
 					</p>
 				</div>
 
-				<footer
-					class="relative z-10 mt-[76px] flex justify-between border-t border-divider-soft pt-3 text-[11px] tracking-[.08em] text-ink-faint uppercase min-[681px]:mt-[90px] min-[1051px]:mt-auto"
-				>
+				<footer class="gallery-footer">
 					<span>Obsidian Art</span>
 					<span>Arequipa, PE</span>
 				</footer>
 			</section>
 		</main>
 </BaseLayout>
+
+<style>
+	:global(.home-body) {
+		margin: 0;
+		background: var(--color-paper);
+		font-family: var(--font-sans);
+		font-weight: 300;
+		color: var(--color-ink);
+	}
+
+	.home-page {
+		display: flex;
+		min-height: 100svh;
+		flex-direction: column;
+		background: var(--color-paper);
+	}
+
+	.sidebar {
+		display: flex;
+		flex-direction: column;
+		padding: 20px;
+		background: var(--color-paper-soft);
+	}
+
+	.site-nav { margin-top: 8px; }
+	.site-nav ul { display: grid; grid-template-columns: repeat(2, 1fr); margin: 0; padding: 0; list-style: none; }
+
+	.nav-link {
+		display: inline-block;
+		padding-block: 4px;
+		font-family: var(--font-display);
+		font-size: 20px;
+		line-height: 1.45;
+		color: var(--color-ink-muted);
+		text-transform: uppercase;
+		transition: color 200ms, transform 200ms;
+	}
+
+	.nav-link,
+	.sidebar-meta a,
+	.collection-link { color: inherit; text-decoration: none; }
+	.nav-link { color: var(--color-ink-muted); }
+	.nav-link.is-current { font-weight: 500; color: var(--color-ink); }
+	.nav-link:hover,
+	.nav-link:focus-visible { transform: translateX(6px); color: var(--color-accent); }
+
+	.sidebar-meta { display: none; }
+
+	.featured-artwork {
+		position: relative;
+		min-height: 70svh;
+		overflow: hidden;
+		background: var(--color-artwork);
+	}
+
+	.featured-artwork img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		min-height: 70svh;
+		object-fit: cover;
+		object-position: center;
+		transition: transform 1200ms cubic-bezier(.2, .7, .2, 1);
+	}
+
+	.featured-artwork:hover img { transform: scale(1.025); }
+
+	.artwork-title {
+		position: absolute;
+		z-index: 10;
+		top: 50%;
+		left: 0;
+		padding: 12px 20px;
+		transform: translateY(-50%);
+		border-radius: 0;
+		background: var(--color-paper);
+		font-family: var(--font-display);
+		font-size: 36px;
+		font-weight: 500;
+		letter-spacing: .04em;
+		color: var(--color-ink);
+		text-transform: uppercase;
+	}
+
+	.artwork-overlay {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background: linear-gradient(180deg, transparent 62%, var(--color-artwork-overlay));
+	}
+
+	.gallery-panel {
+		position: relative;
+		display: flex;
+		overflow: hidden;
+		flex-direction: column;
+		padding: 44px 20px 28px;
+		background: var(--color-paper);
+	}
+
+	.collection-link {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: clamp(56px, 20vw, 82px);
+		font-weight: 300;
+		line-height: .95;
+		letter-spacing: -.065em;
+	}
+
+	.gallery-copy {
+		position: relative;
+		z-index: 10;
+		max-width: 340px;
+		margin-top: 68px;
+		padding-left: 20px;
+		border-left: 1px solid var(--color-divider);
+		font-size: clamp(14px, .84vw, 16px);
+		line-height: 1.62;
+	}
+
+	.gallery-copy p { margin: 0; }
+	.gallery-copy .translation { margin-top: 38px; color: var(--color-ink-faint); }
+
+	.gallery-footer {
+		position: relative;
+		z-index: 10;
+		display: flex;
+		justify-content: space-between;
+		margin-top: 76px;
+		padding-top: 12px;
+		border-top: 1px solid var(--color-divider-soft);
+		font-size: 11px;
+		letter-spacing: .08em;
+		color: var(--color-ink-faint);
+		text-transform: uppercase;
+	}
+
+	@media (min-width: 681px) {
+		.home-page { display: grid; grid-template-columns: 230px minmax(0, 1fr); }
+		.sidebar { min-height: 100svh; padding: 34px clamp(28px, 3.4vw, 66px) 42px; }
+		.site-nav { margin-top: 192px; }
+		.site-nav ul { display: block; }
+		.nav-link { font-size: clamp(20px, 1.4vw, 28px); }
+		.sidebar-meta { display: grid; gap: 34px; margin-top: auto; font-size: 14px; color: var(--color-ink-subtle); }
+		.meta-title { margin: 0 0 8px; font-size: 16px; color: var(--color-ink); }
+		.sidebar-meta a:hover,
+		.sidebar-meta a:focus-visible { color: var(--color-accent); }
+		.social-links { display: flex; gap: 9px; margin: 0; }
+		.featured-artwork,
+		.featured-artwork img { min-height: 100svh; }
+		.artwork-title { padding: 16px 28px; font-size: 72px; }
+		.gallery-panel { grid-column: span 2; padding: 62px 32px 48px; }
+		.gallery-panel header { max-width: 560px; }
+		.collection-link { font-size: 72px; }
+		.gallery-copy { max-width: 560px; margin-top: 72px; }
+		.gallery-footer { margin-top: 90px; }
+	}
+
+	@media (min-width: 1051px) {
+		.home-page { grid-template-columns: minmax(250px, 17.75vw) minmax(0, 61.5vw) minmax(310px, 1fr); }
+		.gallery-panel { grid-column: span 1; min-height: 100svh; padding-top: 30px; padding-bottom: 42px; }
+		.gallery-panel header { max-width: none; }
+		.gallery-copy { max-width: 340px; margin-top: clamp(150px, 25vh, 260px); }
+		.gallery-footer { margin-top: auto; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.nav-link,
+		.featured-artwork img { transition: none; }
+	}
+</style>
