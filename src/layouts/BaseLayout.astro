@@ -1,20 +1,21 @@
 ---
 import '../styles/global.css';
+import { SiteInfo } from '@/config/site-info';
 
 interface Props {
 	title: string;
 	description: string;
+	imageUrl?: string;
 	bodyClass?: string;
 }
 
 const {
-	title,
-	description,
+	title = SiteInfo.title,
+	description = SiteInfo.description,
+	imageUrl = SiteInfo.imageUrl,
 	bodyClass = 'm-0 bg-paper font-sans font-light text-ink',
 } = Astro.props;
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
-const socialImageUrl = new URL('/ogg.png', Astro.site ?? Astro.url);
 ---
 
 <!doctype html>
@@ -23,15 +24,13 @@ const socialImageUrl = new URL('/ogg.png', Astro.site ?? Astro.url);
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content={description} />
-		<link rel="canonical" href={canonicalUrl} />
 
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Obsidian Art" />
 		<meta property="og:locale" content="es_CO" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:url" content={canonicalUrl} />
-		<meta property="og:image" content={socialImageUrl} />
+		<meta property="og:image" content={imageUrl} />
 		<meta property="og:image:type" content="image/png" />
 		<meta property="og:image:width" content="600" />
 		<meta property="og:image:height" content="315" />
@@ -40,7 +39,7 @@ const socialImageUrl = new URL('/ogg.png', Astro.site ?? Astro.url);
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={socialImageUrl} />
+		<meta name="twitter:image" content={imageUrl} />
 		<meta name="twitter:image:alt" content="Obsidian Art" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />

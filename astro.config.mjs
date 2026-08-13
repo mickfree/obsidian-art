@@ -4,7 +4,6 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://obsidian-art.vercel.app',
 	vite: {
 		plugins: [tailwindcss()],
 	},
