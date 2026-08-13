@@ -1,12 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-
-const navigation = [
-	{ label: 'Principal', href: '/' },
-	{ label: 'Colecciones', href: '/collections' },
-	{ label: 'Materiales', href: '/materials' },
-	{ label: 'Info', href: '/info' },
-];
+import Sidebar from "@/components/Sidebar.astro";
 ---
 
 <BaseLayout
@@ -15,55 +9,7 @@ const navigation = [
 	bodyClass="home-body"
 >
 		<main class="home-page">
-			<button
-				class="menu-toggle"
-				type="button"
-				aria-label="Abrir menú"
-				aria-controls="site-sidebar"
-				aria-expanded="false"
-			>
-				<i class="ti ti-menu-2" aria-hidden="true"></i>
-			</button>
-
-			<button class="sidebar-backdrop" type="button" aria-label="Cerrar menú" tabindex="-1"></button>
-
-			<aside class="sidebar" id="site-sidebar" aria-label="Navegación principal" aria-hidden="true">
-				<nav class="site-nav">
-					<ul>
-						{navigation.map((item, index) => (
-							<li>
-								<a
-									class:list={[
-										'nav-link',
-										index === 0 && 'is-current',
-									]}
-									href={item.href}
-								>
-									{item.label}
-								</a>
-							</li>
-						))}
-					</ul>
-				</nav>
-
-				<div class="sidebar-meta">
-					<div>
-						<p class="meta-title">Contacto</p>
-						<a href="mailto:hello@obsidian.art">
-							Copiar email
-						</a>
-					</div>
-
-					<div>
-						<p class="meta-title">Social</p>
-						<p class="social-links">
-							<a href="#instagram">Instagram</a>
-							<span>/</span>
-							<a href="#behance">Behance</a>
-						</p>
-					</div>
-				</div>
-			</aside>
+			<Sidebar />
 
 			<div class="page-content">
 				<section class="featured-artwork" aria-label="Obra destacada">
@@ -112,41 +58,6 @@ const navigation = [
 		</main>
 </BaseLayout>
 
-<script>
-	const menuToggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
-	const sidebar = document.querySelector<HTMLElement>('.sidebar');
-	const backdrop = document.querySelector<HTMLButtonElement>('.sidebar-backdrop');
-
-	const setMenuState = (isOpen: boolean) => {
-		document.body.classList.toggle('menu-is-open', isOpen);
-		menuToggle?.setAttribute('aria-expanded', String(isOpen));
-		menuToggle?.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
-		sidebar?.setAttribute('aria-hidden', String(!isOpen));
-		backdrop?.setAttribute('tabindex', isOpen ? '0' : '-1');
-
-		const icon = menuToggle?.querySelector('i');
-		icon?.classList.toggle('ti-menu-2', !isOpen);
-		icon?.classList.toggle('ti-x', isOpen);
-	};
-
-	menuToggle?.addEventListener('click', () => {
-		setMenuState(menuToggle.getAttribute('aria-expanded') !== 'true');
-	});
-
-	backdrop?.addEventListener('click', () => setMenuState(false));
-
-	sidebar?.querySelectorAll('a').forEach((link) => {
-		link.addEventListener('click', () => setMenuState(false));
-	});
-
-	document.addEventListener('keydown', (event) => {
-		if (event.key === 'Escape' && menuToggle?.getAttribute('aria-expanded') === 'true') {
-			setMenuState(false);
-			menuToggle.focus();
-		}
-	});
-</script>
-
 <style>
 	:global(.home-body) {
 		margin: 0;
@@ -166,99 +77,9 @@ const navigation = [
 		display: grid;
 		width: 100%;
 		min-height: 100svh;
-		transition: width 450ms cubic-bezier(.22, 1, .36, 1), margin-left 450ms cubic-bezier(.22, 1, .36, 1);
 	}
 
-	.menu-toggle {
-		position: fixed;
-		z-index: 40;
-		top: 20px;
-		left: 20px;
-		display: grid;
-		width: 44px;
-		height: 44px;
-		padding: 0;
-		place-items: center;
-		border: 0;
-		border-radius: 50%;
-		background: var(--color-paper-soft);
-		box-shadow: 0 8px 28px rgb(0 0 0 / 12%);
-		font-size: 24px;
-		color: var(--color-ink);
-		cursor: pointer;
-		transition: color 200ms, transform 200ms, background-color 200ms;
-	}
-
-	.menu-toggle:hover,
-	.menu-toggle:focus-visible {
-		background: var(--color-paper);
-		color: var(--color-accent);
-		transform: scale(1.06);
-	}
-
-	.sidebar-backdrop {
-		position: fixed;
-		z-index: 20;
-		inset: 0;
-		border: 0;
-		background: rgb(9 11 10 / 48%);
-		opacity: 0;
-		pointer-events: none;
-		transition: opacity 350ms ease;
-	}
-
-	.sidebar {
-		position: fixed;
-		z-index: 30;
-		inset: 0 auto 0 0;
-		display: flex;
-		width: min(86vw, 360px);
-		flex-direction: column;
-		padding: 96px 32px 42px;
-		background: var(--color-paper-soft);
-		box-shadow: 18px 0 55px rgb(0 0 0 / 15%);
-		transform: translateX(-105%);
-		visibility: hidden;
-		transition: transform 450ms cubic-bezier(.22, 1, .36, 1), visibility 450ms;
-	}
-
-	:global(.menu-is-open) { overflow: hidden; }
-	:global(.menu-is-open) .sidebar {
-		transform: translateX(0);
-		visibility: visible;
-	}
-	:global(.menu-is-open) .sidebar-backdrop {
-		opacity: 1;
-		pointer-events: auto;
-	}
-
-	.site-nav { margin-top: 32px; }
-	.site-nav ul { display: block; margin: 0; padding: 0; list-style: none; }
-
-	.nav-link {
-		display: inline-block;
-		padding-block: 4px;
-		font-family: var(--font-display);
-		font-size: 20px;
-		line-height: 1.45;
-		color: var(--color-ink-muted);
-		text-transform: uppercase;
-		transition: color 200ms, transform 200ms;
-	}
-
-	.nav-link,
-	.sidebar-meta a,
 	.collection-link { color: inherit; text-decoration: none; }
-	.nav-link { color: var(--color-ink-muted); }
-	.nav-link.is-current { font-weight: 500; color: var(--color-ink); }
-	.nav-link:hover,
-	.nav-link:focus-visible { transform: translateX(6px); color: var(--color-accent); }
-
-	.sidebar-meta { display: grid; gap: 34px; margin-top: auto; font-size: 14px; color: var(--color-ink-subtle); }
-	.meta-title { margin: 0 0 8px; font-size: 16px; color: var(--color-ink); }
-	.sidebar-meta a:hover,
-	.sidebar-meta a:focus-visible { color: var(--color-accent); }
-	.social-links { display: flex; gap: 9px; margin: 0; }
 
 	.featured-artwork {
 		position: relative;
@@ -350,16 +171,6 @@ const navigation = [
 	}
 
 	@media (min-width: 681px) {
-		.menu-toggle { top: 28px; left: 28px; }
-		.sidebar { width: 360px; padding: 110px 48px 48px; }
-		.sidebar-backdrop { display: none; }
-		:global(.menu-is-open) { overflow-y: auto; }
-		:global(.menu-is-open) .page-content {
-			width: calc(100% - 360px);
-			margin-left: 360px;
-		}
-		.site-nav { margin-top: 64px; }
-		.nav-link { font-size: clamp(20px, 1.4vw, 28px); }
 		.featured-artwork,
 		.featured-artwork img { min-height: 100svh; }
 		.artwork-title { padding: 16px 28px; font-size: 72px; }
@@ -379,11 +190,6 @@ const navigation = [
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		.menu-toggle,
-		.sidebar,
-		.sidebar-backdrop,
-		.page-content,
-		.nav-link,
 		.featured-artwork img { transition: none; }
 	}
 </style>

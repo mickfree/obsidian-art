@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import MaterialSection from "@/components/MaterialSection.astro";
+import Sidebar from "@/components/Sidebar.astro";
 
 const obsidian = {
 	title: 'Obsidiana',
@@ -45,6 +46,7 @@ const materials = [
 	bodyClass="materials-body"
 >
 	<main class="materials-page">
+		<Sidebar />
 		<header class="site-header border-b">
 			<a class="wordmark" href="/">Obsidian Art</a>
 			<p>Materiales</p>
