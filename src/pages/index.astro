@@ -1,0 +1,127 @@
+---
+import '../styles/global.css';
+
+const navigation = [
+	{ label: 'Gallery', href: '#gallery' },
+	{ label: 'Projects', href: '/projects' },
+	{ label: 'Books', href: '#books' },
+	{ label: 'Info', href: '#info' },
+	{ label: 'News', href: '#news' },
+];
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="Obsidian Art — archivo de obras, proyectos y exploraciones visuales."
+		/>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<title>Gallery — Obsidian Art</title>
+	</head>
+	<body class="m-0 bg-paper font-sans font-light text-ink">
+		<main
+			class="flex min-h-svh flex-col bg-paper min-[681px]:grid min-[681px]:grid-cols-[230px_minmax(0,1fr)] min-[1051px]:grid-cols-[minmax(250px,17.75vw)_minmax(0,61.5vw)_minmax(310px,1fr)]"
+		>
+			<aside
+				class="flex flex-col bg-paper-soft p-5 min-[681px]:min-h-svh min-[681px]:px-[clamp(28px,3.4vw,66px)] min-[681px]:pt-[34px] min-[681px]:pb-[42px]"
+				aria-label="Navegación principal"
+			>
+				<nav class="mt-2 min-[681px]:mt-48">
+					<ul class="m-0 grid list-none grid-cols-2 p-0 min-[681px]:block">
+						{navigation.map((item, index) => (
+							<li>
+								<a
+									class:list={[
+										'inline-block py-1 font-display text-xl leading-[1.45] uppercase transition-[color,transform] duration-200 hover:translate-x-1.5 hover:text-accent focus-visible:translate-x-1.5 focus-visible:text-accent motion-reduce:transition-none min-[681px]:text-[clamp(20px,1.4vw,28px)]',
+										index === 0 ? 'font-medium text-ink' : 'text-ink-muted',
+									]}
+									href={item.href}
+								>
+									{item.label}
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+
+				<div class="mt-auto hidden gap-[34px] text-sm text-ink-subtle min-[681px]:grid">
+					<div>
+						<p class="mb-2 text-base text-ink">Contacto</p>
+						<a class="hover:text-accent focus-visible:text-accent" href="mailto:hello@obsidian.art">
+							Copiar email
+						</a>
+					</div>
+
+					<div>
+						<p class="mb-2 text-base text-ink">Social</p>
+						<p class="m-0 flex gap-[9px]">
+							<a class="hover:text-accent focus-visible:text-accent" href="#instagram">Instagram</a>
+							<span>/</span>
+							<a class="hover:text-accent focus-visible:text-accent" href="#behance">Behance</a>
+						</p>
+					</div>
+				</div>
+			</aside>
+
+			<section
+				class="group relative min-h-[70svh] overflow-hidden bg-artwork min-[681px]:min-h-svh"
+				aria-label="Obra destacada"
+			>
+				<img
+					class="block h-full min-h-[70svh] w-full object-cover object-center transition-transform duration-[1200ms] ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-[1.025] motion-reduce:transition-none min-[681px]:min-h-svh"
+					src="/images/wallpaper/principal_visual.webp"
+					alt="Composición abstracta de mármol negro con vetas doradas"
+				/>
+				<span
+					class="absolute top-1/2 left-0 z-10 -translate-y-1/2 rounded-none bg-paper px-5 py-3 font-display text-4xl font-medium tracking-[.04em] text-ink uppercase min-[681px]:px-7 min-[681px]:py-4 min-[681px]:text-7xl"
+				>
+					Obsidian Art
+				</span>
+				<div
+					class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_62%,var(--color-artwork-overlay))]"
+					aria-hidden="true"
+				></div>
+			</section>
+
+			<section
+				class="relative flex flex-col overflow-hidden bg-paper px-5 pt-11 pb-7 min-[681px]:col-span-2 min-[681px]:px-[clamp(36px,4vw,76px)] min-[681px]:pt-[62px] min-[681px]:pb-12 min-[1051px]:col-span-1 min-[1051px]:min-h-svh min-[1051px]:pt-[30px] min-[1051px]:pb-[42px]"
+				id="gallery"
+				aria-labelledby="gallery-title"
+			>
+				<header class="min-[681px]:max-w-[560px] min-[1051px]:max-w-none">
+					<h1
+						class="m-0 font-display text-[clamp(56px,20vw,82px)] leading-[.95] font-light tracking-[-.065em] min-[681px]:text-[clamp(52px,5vw,96px)]"
+						id="gallery-title"
+					>
+						Gallery
+					</h1>
+				</header>
+
+				<div
+					class="relative z-10 mt-[68px] max-w-[340px] border-l border-divider pl-5 text-[clamp(14px,.84vw,16px)] leading-[1.62] min-[681px]:mt-[72px] min-[681px]:max-w-[560px] min-[1051px]:mt-[clamp(150px,25vh,260px)] min-[1051px]:max-w-[340px]"
+				>
+					<p class="m-0">
+						Un archivo de formas, materia y contraste. Cada pieza nace de explorar
+						lo que aparece cuando la luz toca la oscuridad.
+					</p>
+					<p class="mt-[38px] mb-0 text-ink-faint">
+						An archive of form, matter and contrast. Select the work to discover
+						the story behind its surface.
+					</p>
+				</div>
+
+				<footer
+					class="relative z-10 mt-[76px] flex justify-between border-t border-divider-soft pt-3 text-[11px] tracking-[.08em] text-ink-faint uppercase min-[681px]:mt-[90px] min-[1051px]:mt-auto"
+				>
+					<span>Obsidian Art</span>
+					<span>Arequipa, PE</span>
+				</footer>
+			</section>
+		</main>
+	</body>
+</html>
