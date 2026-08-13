@@ -1,5 +1,5 @@
 export const SiteInfo = {
     title: 'Obsidian Art',
-    description: 'Test IMG ogg',
-    imageUrl: '/obsidian.jpg'
+    description: 'Test Open Graph Image',
+    imageUrl: '/obsidian.webp'
 }
