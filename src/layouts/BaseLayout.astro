@@ -16,6 +16,7 @@ const {
 	bodyClass = 'm-0 bg-paper font-sans font-light text-ink',
 } = Astro.props;
 
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
 ---
 
 <!doctype html>
@@ -24,12 +25,14 @@ const {
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
 
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Obsidian Art" />
 		<meta property="og:locale" content="es_CO" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:image" content={imageUrl} />
 		<meta property="og:image:type" content="image/png" />
 		<meta property="og:image:width" content="600" />
