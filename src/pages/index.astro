@@ -2,11 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const navigation = [
-	{ label: 'Gallery', href: '#gallery' },
+	{ label: 'Principal', href: '#principal' },
 	{ label: 'Projects', href: '/projects' },
-	{ label: 'Books', href: '#books' },
-	{ label: 'Info', href: '#info' },
-	{ label: 'News', href: '#news' },
+	{ label: 'Materiales', href: '#materials' },
+	{ label: 'Info', href: '/info' },
 ];
 ---
 
@@ -79,17 +78,18 @@ const navigation = [
 			</section>
 
 			<section
-				class="relative flex flex-col overflow-hidden bg-paper px-5 pt-11 pb-7 min-[681px]:col-span-2 min-[681px]:px-[clamp(36px,4vw,76px)] min-[681px]:pt-[62px] min-[681px]:pb-12 min-[1051px]:col-span-1 min-[1051px]:min-h-svh min-[1051px]:pt-[30px] min-[1051px]:pb-[42px]"
+				class="relative flex flex-col overflow-hidden bg-paper px-5 pt-11 pb-7 min-[681px]:col-span-2 min-[681px]:px-8 min-[681px]:pt-[62px] min-[681px]:pb-12 min-[1051px]:col-span-1 min-[1051px]:min-h-svh min-[1051px]:pt-[30px] min-[1051px]:pb-[42px]"
 				id="gallery"
 				aria-labelledby="gallery-title"
 			>
 				<header class="min-[681px]:max-w-[560px] min-[1051px]:max-w-none">
-					<h1
-						class="m-0 font-display text-[clamp(56px,20vw,82px)] leading-[.95] font-light tracking-[-.065em] min-[681px]:text-[clamp(52px,5vw,96px)]"
+					<a
+						href="/projects"
+						class="m-0 font-display text-[clamp(56px,20vw,82px)] leading-[.95] font-light tracking-[-.065em] min-[681px]:text-7xl"
 						id="gallery-title"
 					>
-						Gallery
-					</h1>
+						Colección
+					</a>
 				</header>
 
 				<div
