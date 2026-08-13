@@ -49,6 +49,8 @@ const socialImageUrl = new URL(imageUrl, Astro.site ?? Astro.url);
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<title>{title}</title>
+		<!-- Tabler Icons (Biblioteca de iconos moderna) -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 	</head>
 	<body class={bodyClass}>
 		<slot />
