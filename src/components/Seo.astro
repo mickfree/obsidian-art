@@ -1,0 +1,94 @@
+---
+import { SEO, SITE_URL } from '@/config/site-info';
+
+interface Props {
+	title: string;
+	description: string;
+	imageUrl?: string;
+	imageAlt?: string;
+    noindex?: boolean;
+    type?: 'website'
+}
+
+const {
+	title = SEO.title,
+	description = SEO.description,
+	imageUrl = SEO.imageUrl,
+	imageAlt = SEO.imageAlt,
+    noindex = false,
+    type = 'website'
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+const socialImageUrl = new URL(imageUrl, Astro.site ?? Astro.url);
+
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'WebSite',
+			'@id': `${SITE_URL}/#website`,
+			url: SITE_URL,
+			name: SEO.siteName,
+			description: description,
+			inLanguage: 'es-ES',
+			publisher: {
+				'@type': 'Organization',
+				name: SEO.author
+			}
+		},
+        {
+            '@type': 'CollectionPage',
+            '@id': `${canonicalUrl}#webpage`,
+            url: canonicalUrl,
+            name: title,
+            description: description,
+            isPartOf: { '@id': `${SITE_URL}/#website` },
+            primaryImageOfPage: {
+                '@type': 'ImageObject',
+                '@id': `${canonicalUrl}#primaryimage`,
+                url: imageUrl,
+                width: SEO.imageWidth,
+                height: SEO.imageHeight
+            },
+            inLanguage: 'es-PE'
+        }
+	]
+}
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+
+<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
+<link rel="canonical" href={canonicalUrl} />
+
+<meta name="author" content={SEO.author} />
+<meta name="keywords" content={SEO.keywords} />
+
+{/* Open Graph */}
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={SEO.siteName} />
+<meta property="og:locale" content="es_PE" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={socialImageUrl} />
+<meta property="og:image:secure_url" content={socialImageUrl} />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content={String(SEO.imageWidth)} />
+<meta property="og:image:height" content={String(SEO.imageHeight)} />
+<meta property="og:image:alt" content={imageAlt} />
+
+{/* Twitter */}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={socialImageUrl} />
+<meta name="twitter:image:alt" content={imageAlt} />
+
+{/* App */}
+<meta name="application-name" content={SEO.siteName} />
+
+{/* Scheme */}
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
