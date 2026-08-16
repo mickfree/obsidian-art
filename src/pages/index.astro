@@ -68,6 +68,7 @@ import Sidebar from "@/components/Sidebar.astro";
 		display: grid;
 		width: 100%;
 		min-height: 100svh;
+		transition: width 450ms cubic-bezier(.22, 1, .36, 1), margin-left 450ms cubic-bezier(.22, 1, .36, 1);
 	}
 
 	.collection-link { color: inherit; text-decoration: none; }
@@ -162,6 +163,11 @@ import Sidebar from "@/components/Sidebar.astro";
 	}
 
 	@media (min-width: 681px) {
+		:global(body.menu-is-open) .page-content {
+			width: calc(100% - 360px);
+			margin-left: 360px;
+		}
+
 		.featured-artwork,
 		.featured-artwork img { min-height: 100svh; }
 		.artwork-title { padding: 16px 28px; font-size: 72px; }
@@ -173,7 +179,7 @@ import Sidebar from "@/components/Sidebar.astro";
 	}
 
 	@media (min-width: 1051px) {
-		.page-content { grid-template-columns: minmax(0, 70%) minmax(310px, 1fr); }
+		.page-content { grid-template-columns: minmax(0, 7fr) minmax(310px, 3fr); }
 		.gallery-panel { min-height: 100svh; padding-top: 30px; padding-bottom: 42px; }
 		.gallery-panel header { max-width: none; }
 		.gallery-copy { max-width: 340px; margin-top: clamp(150px, 25vh, 260px); }
@@ -181,6 +187,7 @@ import Sidebar from "@/components/Sidebar.astro";
 	}
 
 	@media (prefers-reduced-motion: reduce) {
+		.page-content,
 		.featured-artwork img { transition: none; }
 	}
 </style>

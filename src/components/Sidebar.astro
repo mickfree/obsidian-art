@@ -160,10 +160,6 @@ const isCurrent = (href: string) => {
 	:global(.menu-is-open) { overflow: hidden; }
 	:global(.menu-is-open) .sidebar { transform: translateX(0); visibility: visible; }
 	:global(.menu-is-open) .sidebar-backdrop { opacity: 1; pointer-events: auto; }
-	:global(.page-content) {
-		transition: width 450ms cubic-bezier(.22, 1, .36, 1), margin-left 450ms cubic-bezier(.22, 1, .36, 1);
-	}
-
 	.site-nav { margin-top: 32px; }
 	.site-nav ul { display: block; margin: 0; padding: 0; list-style: none; }
 	.nav-link {
@@ -193,7 +189,6 @@ const isCurrent = (href: string) => {
 		.sidebar { width: 360px; padding: 110px 48px 48px; }
 		.sidebar-backdrop { display: none; }
 		:global(.menu-is-open) { overflow-y: auto; }
-		:global(.menu-is-open) .page-content { width: calc(100% - 360px); margin-left: 360px; }
 		.site-nav { margin-top: 64px; }
 		.nav-link { font-size: clamp(20px, 1.4vw, 28px); }
 	}
@@ -202,7 +197,6 @@ const isCurrent = (href: string) => {
 		.menu-toggle,
 		.sidebar,
 		.sidebar-backdrop,
-		:global(.page-content),
 		.nav-link { transition: none; }
 	}
 </style>
