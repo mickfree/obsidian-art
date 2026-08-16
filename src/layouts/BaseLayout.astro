@@ -1,16 +1,19 @@
 ---
 import '../styles/global.css';
 import Seo from '@/components/Seo.astro';
+import Sidebar from '@/components/Sidebar.astro';
 
 
 interface Props {
 	title: string;
 	description: string;
+	showSidebar?: boolean;
 }
 
 const { 
 	title,
 	description,
+	showSidebar = true,
 } = Astro.props
 
 ---
@@ -33,6 +36,7 @@ const {
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 	</head>
 	<body>
+		{showSidebar && <Sidebar />}
 		<slot />
 	</body>
 </html>
