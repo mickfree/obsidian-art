@@ -45,7 +45,7 @@ const projects = [
 
 const initialProject = projects[0];
 const initialHref = initialProject.href ?? "/";
-const initialLinkLabel = `@${initialHref.split("/").filter(Boolean).pop()}`;
+const initialLinkLabel = "Ver más detalles";
 ---
 
 <BaseLayout
@@ -75,7 +75,7 @@ const initialLinkLabel = `@${initialHref.split("/").filter(Boolean).pop()}`;
                 data-index={index}
                 data-href={project.href ?? ""}
                 data-link-label={project.href
-                  ? `@${project.href.split("/").filter(Boolean).pop()}`
+                  ? "Ver más detalles"
                   : "Sin enlace disponible"}
                 aria-label={`${index + 1} de ${projects.length}: ${project.title}`}
                 aria-hidden={index !== 0 ? "true" : "false"}
