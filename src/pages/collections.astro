@@ -2,191 +2,731 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const projects = [
-	{ title: 'Ojo de Madera', type: 'Pulsera · 2026', image: '/images/collections/ojo-de-madera/ojo_madera_04.webp', href: '/collections/ojo-de-madera', real: true },
-	{ title: 'Siete Chakras', type: 'Pulsera · 2026', image: '/images/collections/siete-chakras/siete-chacras_04.webp', href: '/collections/siete-chakras', real: true },
-	{ title: 'Piedra Nocturna', type: 'Collar · Estudio', image: '/images/collections/piedra-nocturna.png' },
-	{ title: 'Sol de Bronce', type: 'Broche · Estudio', image: '/images/collections/sol-de-bronce.png' },
-	{ title: 'Humo y Raíz', type: 'Collar · Estudio', image: '/images/collections/humo-y-raiz.png' },
-	{ title: 'Ojo de Madera', type: 'Pulsera · 2026', image: '/images/collections/ojo-de-madera/ojo_madera_04.webp', href: '/collections/ojo-de-madera', real: true },
-	{ title: 'Siete Chakras', type: 'Pulsera · 2026', image: '/images/collections/siete-chakras/siete-chacras_04.webp', href: '/collections/siete-chakras', real: true },
+  {
+    title: "Ojo de Madera",
+    type: "Pulsera · 2026",
+    image: "/images/collections/ojo-de-madera/ojo_madera_04.webp",
+    href: "/collections/ojo-de-madera",
+  },
+  {
+    title: "Siete Chakras",
+    type: "Pulsera · 2026",
+    image: "/images/collections/siete-chakras/siete-chacras_04.webp",
+    href: "/collections/siete-chakras",
+  },
+  {
+    title: "Piedra Nocturna",
+    type: "Collar · Estudio",
+    image: "/images/collections/piedra-nocturna.png",
+  },
+  {
+    title: "Sol de Bronce",
+    type: "Broche · Estudio",
+    image: "/images/collections/sol-de-bronce.png",
+  },
+  {
+    title: "Humo y Raíz",
+    type: "Collar · Estudio",
+    image: "/images/collections/humo-y-raiz.png",
+  },
+  {
+    title: "Ojo de Madera II",
+    type: "Pulsera · 2026",
+    image: "/images/collections/ojo-de-madera/ojo_madera_02.webp",
+    href: "/collections/ojo-de-madera",
+  },
+  {
+    title: "Siete Chakras II",
+    type: "Pulsera · 2026",
+    image: "/images/collections/siete-chakras/siete-chacras_02.webp",
+    href: "/collections/siete-chakras",
+  },
 ];
+
+const initialProject = projects[0];
+const initialHref = initialProject.href ?? "/";
+const initialLinkLabel = `@${initialHref.split("/").filter(Boolean).pop()}`;
 ---
 
 <BaseLayout
-	title="Proyectos — Obsidian Art"
-	description="Catálogo de proyectos y colecciones de Obsidian Art."
+  title="Colecciones — Obsidian Art"
+  description="Catálogo de proyectos y colecciones de Obsidian Art."
 >
-		<main class="projects-page">
-			<header class="site-header">
-				<a class="wordmark" href="/">Obsidian Art</a>
-				<p>proyectos</p>
-			</header>
+  <main class="collections-page">
+    <header class="site-header">
+      <a class="wordmark" href="/">Obsidian Art</a>
+      <p>Colecciones</p>
+    </header>
 
-			<section class="catalog" aria-label="Catálogo de proyectos">
-				{projects.map((project, index) => (
-					<article class:list={['project-card', project.real && 'is-current']} tabindex="0">
-						<img src={project.image} alt={`Vista previa de ${project.title}`} />
-						<div class="card-overlay"></div>
-						<div class="card-number">{String(index + 1).padStart(2, '0')}</div>
-						<div class="card-content">
-							<p>{project.type}</p>
-							<h2>{project.title}</h2>
-							<span>{project.real ? 'Ver proyecto →' : 'Proyecto de muestra'}</span>
-						</div>
-						{project.href && <a class="card-link" href={project.href} aria-label={`Ver proyecto ${project.title}`}></a>}
-					</article>
-				))}
-			</section>
+    <section class="carousel-section" aria-label="Carrusel de colecciones">
+      <div
+        class="carousel"
+        role="region"
+        aria-roledescription="carrusel"
+        aria-label="Proyectos destacados"
+        tabindex="0"
+      >
 
-			<footer class="page-footer">
-				<p>Explora materia, forma y contraste.</p>
-			</footer>
-		</main>
+        <div class="carousel-track">
+          {
+            projects.map((project, index) => (
+              <article
+                class="project-card"
+                data-index={index}
+                data-href={project.href ?? ""}
+                data-link-label={project.href
+                  ? `@${project.href.split("/").filter(Boolean).pop()}`
+                  : "Sin enlace disponible"}
+                aria-label={`${index + 1} de ${projects.length}: ${project.title}`}
+                aria-hidden={index !== 0 ? "true" : "false"}
+              >
+                <img
+                  src={project.image}
+                  alt={`Vista previa de ${project.title}`}
+                  draggable="false"
+                />
+                <div class="card-shade" />
+                <div class="card-content">
+                  <p>{project.type}</p>
+                  <h2>
+                    {project.href ? (
+                      <a
+                        class="card-link"
+                        href={project.href}
+                        aria-label={`Ver colección ${project.title}`}
+                        draggable="false"
+                      >
+                        {project.title}
+                      </a>
+                    ) : (
+                      project.title
+                    )}
+                  </h2>
+                  <span>
+                    {project.href ? "Ver colección" : "Pieza de estudio"}
+                  </span>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+
+      </div>
+
+      <div class="project-access">
+        <a
+          class="project-access-link"
+          href={initialHref}
+          aria-label={`Abrir ${initialProject.title}`}
+        >
+          <span class="project-access-label">{initialLinkLabel}</span>
+            <i class="ti ti-arrow-up-right"></i>
+        </a>
+      </div>
+
+      <div class="carousel-pagination" aria-label="Seleccionar colección">
+        {
+          projects.map((project, index) => (
+            <button
+              class:list={["carousel-dot", index === 0 && "is-active"]}
+              type="button"
+              data-index={index}
+              aria-label={`Ir a ${project.title}`}
+              aria-current={index === 0 ? "true" : undefined}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <p>Materia, forma y contraste.</p>
+    </footer>
+  </main>
 </BaseLayout>
 
+<script>
+  const carousel = document.querySelector<HTMLElement>(".carousel");
+  const cards = Array.from(
+    document.querySelectorAll<HTMLElement>(".project-card"),
+  );
+  const previousButton = document.querySelector<HTMLButtonElement>(
+    ".carousel-button.previous",
+  );
+  const nextButton = document.querySelector<HTMLButtonElement>(
+    ".carousel-button.next",
+  );
+  const dots = Array.from(
+    document.querySelectorAll<HTMLButtonElement>(".carousel-dot"),
+  );
+  const count = document.querySelector<HTMLElement>(".active-count span");
+  const projectAccessLink = document.querySelector<HTMLAnchorElement>(
+    ".project-access-link",
+  );
+  const projectAccessLabel = document.querySelector<HTMLElement>(
+    ".project-access-label",
+  );
+  let activeIndex = 0;
+  let pointerStartX = 0;
+  let pointerStartY = 0;
+  let pointerStartTime = 0;
+  let activePointerId: number | null = null;
+  let dragging = false;
+  let suppressClick = false;
+  const dragStartThreshold = 10;
+
+  const setDragOffset = (distance: number) => {
+    carousel?.style.setProperty("--drag-x", `${distance}px`);
+  };
+
+  const wrappedOffset = (index: number) => {
+    let offset = index - activeIndex;
+    const half = Math.floor(cards.length / 2);
+    if (offset > half) offset -= cards.length;
+    if (offset < -half) offset += cards.length;
+    return offset;
+  };
+
+  const render = () => {
+    cards.forEach((card, index) => {
+      const offset = wrappedOffset(index);
+      const isActive = offset === 0;
+      card.style.setProperty("--offset", String(offset));
+      card.dataset.position = Math.abs(offset) > 3 ? "hidden" : String(offset);
+      card.classList.toggle("is-active", isActive);
+      card.setAttribute("aria-hidden", String(!isActive));
+      card
+        .querySelector<HTMLAnchorElement>(".card-link")
+        ?.setAttribute("tabindex", isActive ? "0" : "-1");
+    });
+    dots.forEach((dot, index) => {
+      const isActive = index === activeIndex;
+      dot.classList.toggle("is-active", isActive);
+      if (isActive) dot.setAttribute("aria-current", "true");
+      else dot.removeAttribute("aria-current");
+    });
+    if (count) count.textContent = String(activeIndex + 1).padStart(2, "0");
+
+    const activeCard = cards[activeIndex];
+    const activeHref = activeCard?.dataset.href;
+    const activeLabel = activeCard?.dataset.linkLabel ?? "Sin enlace disponible";
+    if (projectAccessLabel) projectAccessLabel.textContent = activeLabel;
+    if (projectAccessLink) {
+      if (activeHref) {
+        projectAccessLink.href = activeHref;
+        projectAccessLink.removeAttribute("aria-disabled");
+        projectAccessLink.removeAttribute("tabindex");
+        projectAccessLink.setAttribute("aria-label", `Abrir ${activeLabel}`);
+      } else {
+        projectAccessLink.removeAttribute("href");
+        projectAccessLink.setAttribute("aria-disabled", "true");
+        projectAccessLink.setAttribute("tabindex", "-1");
+        projectAccessLink.setAttribute("aria-label", activeLabel);
+      }
+    }
+  };
+
+  const move = (direction: number) => {
+    activeIndex = (activeIndex + direction + cards.length) % cards.length;
+    render();
+  };
+
+  previousButton?.addEventListener("click", () => move(-1));
+  nextButton?.addEventListener("click", () => move(1));
+  dots.forEach((dot, index) =>
+    dot.addEventListener("click", () => {
+      activeIndex = index;
+      render();
+    }),
+  );
+  carousel?.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      move(-1);
+    }
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      move(1);
+    }
+    if (event.key === "Home") {
+      event.preventDefault();
+      activeIndex = 0;
+      render();
+    }
+    if (event.key === "End") {
+      event.preventDefault();
+      activeIndex = cards.length - 1;
+      render();
+    }
+  });
+  carousel?.addEventListener("dragstart", (event) => {
+    event.preventDefault();
+  });
+  cards.forEach((card, index) =>
+    card.addEventListener("click", (event) => {
+      if (wrappedOffset(index) !== 0) {
+        event.preventDefault();
+        activeIndex = index;
+        render();
+      }
+    }),
+  );
+  carousel?.addEventListener("pointerdown", (event) => {
+    if (!event.isPrimary || event.button !== 0) return;
+    if ((event.target as Element).closest("a, button")) return;
+    pointerStartX = event.clientX;
+    pointerStartY = event.clientY;
+    pointerStartTime = performance.now();
+    activePointerId = event.pointerId;
+    dragging = true;
+    carousel.setPointerCapture(event.pointerId);
+  });
+  carousel?.addEventListener("pointermove", (event) => {
+    if (!dragging || event.pointerId !== activePointerId) return;
+    const distanceX = event.clientX - pointerStartX;
+    const distanceY = event.clientY - pointerStartY;
+    if (
+      Math.abs(distanceX) > dragStartThreshold &&
+      Math.abs(distanceX) > Math.abs(distanceY)
+    ) {
+      carousel.classList.add("is-dragging");
+      setDragOffset(distanceX * 0.9);
+      event.preventDefault();
+    }
+  });
+  carousel?.addEventListener("pointerup", (event) => {
+    if (!dragging || event.pointerId !== activePointerId) return;
+    const distanceX = event.clientX - pointerStartX;
+    const distanceY = event.clientY - pointerStartY;
+    const elapsed = Math.max(performance.now() - pointerStartTime, 1);
+    const velocityX = Math.abs(distanceX) / elapsed;
+    const isHorizontal = Math.abs(distanceX) > Math.abs(distanceY);
+    const shouldMove =
+      isHorizontal &&
+      (Math.abs(distanceX) > 12 ||
+        (Math.abs(distanceX) > 4 && velocityX > 0.08));
+    carousel.classList.remove("is-dragging");
+    setDragOffset(0);
+    if (shouldMove) {
+      suppressClick = true;
+      move(distanceX > 0 ? -1 : 1);
+    }
+    if (suppressClick) {
+      window.setTimeout(() => {
+        suppressClick = false;
+      }, 0);
+    }
+    dragging = false;
+    activePointerId = null;
+  });
+  carousel?.addEventListener("click", (event) => {
+    if (!suppressClick) return;
+    event.preventDefault();
+    event.stopPropagation();
+    suppressClick = false;
+  }, true);
+  carousel?.addEventListener("pointercancel", () => {
+    carousel.classList.remove("is-dragging");
+    setDragOffset(0);
+    dragging = false;
+    activePointerId = null;
+    suppressClick = false;
+  });
+  render();
+</script>
+
 <style>
+  :global(body) {
+    margin: 0;
+    color: #f3f1eb;
+  }
+  .collections-page {
+    display: flex;
+    min-height: 100svh;
+    box-sizing: border-box;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 24px clamp(20px, 3vw, 58px) 28px;
+  }
+  .site-header {
+    display: grid;
+    min-height: 58px;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .wordmark {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: inherit;
+    text-decoration: none;
+  }
+  .site-header p {
+    margin: 0;
+    color: #aaa69d;
+  }
+  .site-header > span {
+    justify-self: end;
+    color: #6f6d68;
+  }
 
-	.projects-page {
-		display: flex;
-		min-height: 100svh;
-		flex-direction: column;
-		padding: 24px clamp(20px, 3vw, 58px) 28px;
-	}
+  .carousel-section {
+    display: flex;
+    min-height: 480px;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .carousel {
+    position: relative;
+    width: calc(100% + clamp(40px, 6vw, 116px));
+    height: clamp(390px, 55svh, 560px);
+    outline: none;
+    perspective: 1300px;
+    touch-action: pan-y;
+    user-select: none;
+  }
+  .carousel:focus-visible::after {
+    position: absolute;
+    inset: 8% 3%;
+    border: 1px solid rgb(255 255 255 / 30%);
+    border-radius: 8px;
+    content: "";
+    pointer-events: none;
+  }
+  .carousel-track {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+  }
+  .project-card {
+    --distance: max(var(--offset), calc(var(--offset) * -1));
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: clamp(190px, 30vw, 510px);
+    aspect-ratio: 0.82;
+    overflow: hidden;
+    border-radius: clamp(10px, 1.2vw, 20px);
+    background: #171717;
+    box-shadow: 0 32px 80px rgb(0 0 0 / 45%);
+    transform: translate3d(
+        calc(-50% + var(--offset) * clamp(170px, 19vw, 286px) + var(--drag-x, 0px)),
+        -50%,
+        calc(var(--distance) * -90px)
+      )
+      rotateY(calc(var(--offset) * -6deg)) rotateZ(calc(var(--offset) * 1.6deg))
+      scale(calc(1 - var(--distance) * 0.085));
+    opacity: calc(1 - var(--distance) * 0.12);
+    will-change: transform, opacity;
+    transition:
+      transform 460ms cubic-bezier(0.22, 0.8, 0.3, 1),
+      opacity 380ms ease,
+      filter 380ms ease;
+    cursor: pointer;
+  }
+  .carousel.is-dragging .project-card {
+    cursor: grabbing;
+    transition: none;
+  }
+  .project-card[data-position="hidden"] {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .project-card.is-active {
+    z-index: 8;
+    aspect-ratio: 0.94;
+    cursor: default;
+  }
+  .project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.72) brightness(0.78);
+    transition:
+      filter 600ms ease,
+      transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  .project-card.is-active img {
+    filter: saturate(0.95) brightness(0.9);
+  }
+  .project-card.is-active:hover img {
+    transform: scale(1.025);
+  }
+  .card-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 45%, rgb(0 0 0 / 76%));
+    opacity: 0;
+    transition: opacity 450ms ease;
+  }
+  .card-content {
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 24px;
+    transform: translateY(12px);
+    opacity: 0;
+    transition:
+      opacity 450ms ease,
+      transform 450ms ease;
+  }
+  .project-card.is-active .card-shade,
+  .project-card.is-active .card-content {
+    opacity: 1;
+  }
+  .project-card.is-active .card-content {
+    transform: translateY(0);
+  }
+  .card-content p {
+    margin: 0;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    color: rgb(255 255 255 / 70%);
+    text-transform: uppercase;
+  }
+  .card-content h2 {
+    margin: 6px 0 8px;
+    font-family: var(--font-display);
+    font-size: clamp(23px, 2.25vw, 36px);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+  .card-content span {
+    font-size: 9px;
+    letter-spacing: 0.13em;
+    color: rgb(255 255 255 / 70%);
+    text-transform: uppercase;
+  }
+  .card-link {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-link:hover,
+  .card-link:focus-visible {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.16em;
+  }
+  .project-access {
+    position: relative;
+    z-index: 15;
+    display: flex;
+    min-height: 34px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 52px;
+  }
+  .project-access-link {
+    display: inline-flex;
+    min-height: 40px;
+    box-sizing: border-box;
+    align-items: center;
+    gap: 16px;
+    padding: 5px 7px 5px 12px;
+    border: 1px solid rgb(255 255 255 / 8%);
+    border-radius: 10px;
+    background: #252525;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 16%);
+    color: #c8c6c1;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    transition:
+      border-color 180ms ease,
+      background-color 180ms ease,
+      color 180ms ease,
+      transform 180ms ease,
+      opacity 180ms ease;
+  }
+  .project-access-link:hover,
+  .project-access-link:focus-visible {
+    border-color: rgb(255 255 255 / 22%);
+    background: #2d2d2d;
+    color: #fff;
+    transform: translateY(-1px);
+  }
+  .project-access-link:focus-visible {
+    outline: 1px solid rgb(255 255 255 / 80%);
+    outline-offset: 3px;
+  }
+  .project-access-link[aria-disabled="true"] {
+    cursor: default;
+    opacity: 0.38;
+    pointer-events: none;
+  }
+  .project-access-icon {
+    display: grid;
+    width: 13px;
+    height: 13px;
+    box-sizing: border-box;
+    place-items: center;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+  }
+  .carousel-button {
+    position: absolute;
+    z-index: 12;
+    top: 50%;
+    display: grid;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    place-items: center;
+    border: 1px solid rgb(255 255 255 / 20%);
+    border-radius: 50%;
+    background: rgb(7 7 7 / 55%);
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    touch-action: manipulation;
+    transition:
+      border-color 200ms,
+      background-color 200ms,
+      transform 200ms;
+  }
+  .carousel-button:hover,
+  .carousel-button:focus-visible {
+    border-color: rgb(255 255 255 / 65%);
+    background: rgb(255 255 255 / 12%);
+    transform: scale(1.06);
+  }
+  .carousel-button.previous {
+    left: clamp(18px, 4vw, 64px);
+  }
+  .carousel-button.next {
+    right: clamp(18px, 4vw, 64px);
+  }
+  .carousel-pagination {
+    position: relative;
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 18px;
+  }
+  .carousel-dot {
+    width: 7px;
+    height: 7px;
+    box-sizing: border-box;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: #a7a39b;
+    cursor: pointer;
+    opacity: 0.65;
+    transition:
+      width 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 300ms ease,
+      opacity 300ms ease;
+  }
+  .carousel-dot.is-active {
+    width: 24px;
+    background: #171717;
+    opacity: 1;
+  }
+  .carousel-dot:focus-visible {
+    outline: 2px solid #171717;
+    outline-offset: 4px;
+  }
 
-	.site-header {
-		display: grid;
-		min-height: 58px;
-		grid-template-columns: 1fr auto 1fr;
-		align-items: center;
-		font-size: 10px;
-		letter-spacing: .16em;
-		text-transform: uppercase;
-	}
+  .page-footer {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: end;
+    gap: 20px;
+  }
+  .page-footer > p {
+    margin: 0;
+  }
+  .page-footer > p:nth-child(1) {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.4vw, 38px);
+	color: #171717;
+    letter-spacing: -0.045em;
+  }
+  .page-footer > span,
+  .active-count {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: #77746e;
+    text-transform: uppercase;
+  }
+  .page-footer > span {
+    justify-self: baseline;
+  }
+  .active-count span {
+    color: #f3f1eb;
+  }
 
-	.wordmark {
-		font-family: var(--font-display);
-		font-size: 15px;
-		font-weight: 500;
-		letter-spacing: .04em;
-		color: inherit;
-		text-decoration: none;
-	}
-
-	.site-header p { margin: 0; color: #6e6b64; }
-	.site-header span { justify-self: end; color: #8d8981; }
-
-	.catalog {
-		display: flex;
-		width: 100%;
-		max-width: 1450px;
-		height: min(61svh, 660px);
-		min-height: 440px;
-		gap: clamp(7px, .8vw, 15px);
-		margin: clamp(35px, 5vh, 70px) auto 34px;
-	}
-
-	.project-card {
-		position: relative;
-		min-width: 0;
-		flex: 1;
-		overflow: hidden;
-		background: #d8d5ce;
-		outline: 0;
-		transition: flex-grow 650ms cubic-bezier(.2, .7, .2, 1), transform 650ms cubic-bezier(.2, .7, .2, 1), opacity 650ms cubic-bezier(.2, .7, .2, 1);
-	}
-
-	.project-card:nth-child(even) { transform: translateY(5%); }
-	.project-card:nth-child(3n) { transform: translateY(-2%); }
-	.project-card:hover,
-	.project-card:focus,
-	.project-card:focus-within { flex-grow: 2.7; transform: translateY(-2%); }
-
-	.project-card img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		filter: saturate(.7) grayscale(.35);
-		transition: filter 800ms cubic-bezier(.2, .7, .2, 1), transform 800ms cubic-bezier(.2, .7, .2, 1);
-	}
-
-	.project-card:hover img,
-	.project-card:focus img,
-	.project-card:focus-within img { transform: scale(1.035); filter: saturate(1) grayscale(0); }
-
-	.card-overlay {
-		position: absolute;
-		inset: 0;
-		background: rgb(242 240 235 / 50%);
-		transition: background-color 500ms;
-	}
-
-	.project-card:hover .card-overlay,
-	.project-card:focus .card-overlay,
-	.project-card:focus-within .card-overlay { background: transparent; }
-
-	.card-number {
-		position: absolute;
-		top: 14px;
-		left: 14px;
-		font-size: 9px;
-		letter-spacing: .12em;
-		color: rgb(255 255 255 / 80%);
-	}
-
-	.card-content {
-		position: absolute;
-		z-index: 2;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		padding: 18px;
-		transform: translateY(12px);
-		color: white;
-		opacity: 0;
-		transition: opacity 450ms, transform 450ms;
-	}
-
-	.card-content::before {
-		position: absolute;
-		z-index: -1;
-		top: -70px;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		background: linear-gradient(to bottom, transparent, rgb(0 0 0 / 65%));
-		content: '';
-	}
-
-	.project-card:hover .card-content,
-	.project-card:focus .card-content,
-	.project-card:focus-within .card-content { transform: translateY(0); opacity: 1; }
-	.card-content p { margin: 0; font-size: 9px; letter-spacing: .13em; text-transform: uppercase; }
-	.card-content h2 { margin: 6px 0; font-family: var(--font-display); font-size: clamp(21px, 2vw, 35px); font-weight: 400; line-height: .95; letter-spacing: -.045em; }
-	.card-content span { font-size: 9px; letter-spacing: .13em; color: rgb(255 255 255 / 75%); text-transform: uppercase; }
-	.card-link { position: absolute; z-index: 3; inset: 0; }
-
-	.catalog:has(.project-card:hover) .project-card:not(:hover),
-	.catalog:has(.project-card:focus-within) .project-card:not(:focus-within) { opacity: .62; }
-
-	.page-footer { display: flex; align-items: end; justify-content: space-between; margin-top: auto; padding-top: 24px; }
-	.page-footer p { margin: 0; font-family: var(--font-display); font-size: clamp(24px, 3vw, 48px); letter-spacing: -.045em; }
-	.page-footer p span { display: block; margin-bottom: 8px; font-family: var(--font-sans); font-size: 9px; letter-spacing: .16em; color: #77736b; text-transform: uppercase; }
-	.page-footer a { font-size: 10px; letter-spacing: .14em; color: #5f5c56; text-decoration: none; text-transform: uppercase; }
-
-	@media (max-width: 760px) {
-		.projects-page { padding-inline: 16px; }
-		.site-header { grid-template-columns: 1fr auto; }
-		.site-header p { display: none; }
-		.catalog { height: 61svh; min-height: 480px; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; }
-		.project-card,
-		.project-card:nth-child(even),
-		.project-card:nth-child(3n),
-		.project-card:hover,
-		.project-card:focus,
-		.project-card:focus-within { flex: 0 0 46vw; transform: translateY(0); scroll-snap-align: center; }
-		.card-overlay { background: rgb(242 240 235 / 18%); }
-		.card-content { transform: translateY(0); opacity: 1; }
-		.page-footer { display: block; }
-		.page-footer a { display: inline-block; margin-top: 24px; }
-	}
+  @media (max-width: 760px) {
+    .collections-page {
+      padding: 18px 16px 22px;
+    }
+    .site-header {
+      grid-template-columns: 1fr auto;
+    }
+    .site-header p {
+      display: none;
+    }
+    .carousel-section {
+      min-height: 430px;
+    }
+    .carousel {
+      height: min(72svh, 560px);
+    }
+    .project-card {
+      width: min(78vw, 340px);
+      transform: translate3d(
+          calc(-50% + var(--offset) * 63vw + var(--drag-x, 0px)),
+          -50%,
+          calc(var(--distance) * -70px)
+        )
+        rotateY(calc(var(--offset) * -7deg))
+        rotateZ(calc(var(--offset) * 1.8deg))
+        scale(calc(1 - var(--distance) * 0.09));
+    }
+    .carousel-button {
+      top: auto;
+      bottom: 4px;
+    }
+    .carousel-button.previous {
+      left: calc(50% - 51px);
+    }
+    .carousel-button.next {
+      right: calc(50% - 51px);
+    }
+    .page-footer {
+      grid-template-columns: 1fr auto;
+    }
+    .carousel-pagination {
+      margin-top: 10px;
+    }
+    .project-access {
+      margin-top: -32px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project-card,
+    .project-card img,
+    .card-content,
+    .card-shade,
+    .carousel-button,
+    .carousel-dot {
+      transition: none;
+    }
+    .project-access-link {
+      transition: none;
+    }
+  }
 </style>
