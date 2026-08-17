@@ -1,23 +1,21 @@
 ---
 import '../styles/global.css';
-import { SiteInfo } from '@/config/site-info';
+import Seo from '@/components/Seo.astro';
+import Sidebar from '@/components/Sidebar.astro';
+
 
 interface Props {
 	title: string;
 	description: string;
-	imageUrl?: string;
-	bodyClass?: string;
+	showSidebar?: boolean;
 }
 
-const {
-	title = SiteInfo.title,
-	description = SiteInfo.description,
-	imageUrl = SiteInfo.imageUrl,
-	bodyClass = 'm-0 bg-paper font-sans font-light text-ink',
-} = Astro.props;
+const { 
+	title,
+	description,
+	showSidebar = true,
+} = Astro.props
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
-const socialImageUrl = new URL(imageUrl, Astro.site ?? Astro.url);
 ---
 
 <!doctype html>
@@ -25,32 +23,20 @@ const socialImageUrl = new URL(imageUrl, Astro.site ?? Astro.url);
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description" content={description} />
-		<link rel="canonical" href={canonicalUrl} />
 
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="Obsidian Art" />
-		<meta property="og:locale" content="es_PE" />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:url" content={canonicalUrl} />
-		<meta property="og:image" content={socialImageUrl} />
-		<meta property="og:image:secure_url" content={socialImageUrl} />
-		<meta property="og:image:type" content="image/jpeg" />
-		<meta property="og:image:width" content="1200" />
-		<meta property="og:image:height" content="630" />
-		<meta property="og:image:alt" content="Obsidian Art" />
-
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={socialImageUrl} />
-		<meta name="twitter:image:alt" content="Obsidian Art" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<title>{title}</title>
+
+		<Seo
+			title={title}
+			description={description}
+	  	/>
+
+		<!-- Tabler Icons (Biblioteca de iconos moderna) -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 	</head>
-	<body class={bodyClass}>
+	<body>
+		{showSidebar && <Sidebar />}
 		<slot />
 	</body>
 </html>

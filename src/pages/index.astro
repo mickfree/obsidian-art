@@ -12,21 +12,15 @@ const navigation = [
 <BaseLayout
 	title="Gallery — Obsidian Art"
 	description="Obsidian Art — archivo de obras, proyectos y exploraciones visuales."
-	bodyClass="home-body"
+	showSidebar={false}
 >
 		<main class="home-page">
-			<aside class="sidebar" aria-label="Navegación principal">
+			<aside class="home-aside" aria-label="Navegación principal">
 				<nav class="site-nav">
 					<ul>
 						{navigation.map((item, index) => (
 							<li>
-								<a
-									class:list={[
-										'nav-link',
-										index === 0 && 'is-current',
-									]}
-									href={item.href}
-								>
+								<a class:list={['nav-link', index === 0 && 'is-current']} href={item.href}>
 									{item.label}
 								</a>
 							</li>
@@ -34,12 +28,10 @@ const navigation = [
 					</ul>
 				</nav>
 
-				<div class="sidebar-meta">
+				<div class="aside-meta">
 					<div>
 						<p class="meta-title">Contacto</p>
-						<a href="mailto:hello@obsidian.art">
-							Copiar email
-						</a>
+						<a href="mailto:hello@obsidian.art">Copiar email</a>
 					</div>
 
 					<div>
@@ -54,59 +46,51 @@ const navigation = [
 			</aside>
 
 			<section class="featured-artwork" aria-label="Obra destacada">
-				<img
-					src="/images/wallpaper/principal_visual.webp"
-					alt="Composición abstracta de mármol negro con vetas doradas"
-				/>
-				<span class="artwork-title">
-					Obsidian Art
-				</span>
-				<div class="artwork-overlay" aria-hidden="true"></div>
+					<img
+						src="/images/wallpaper/principal_visual.webp"
+						alt="Composición abstracta de mármol negro con vetas doradas"
+					/>
+					<span class="artwork-title">
+						Obsidian Art
+					</span>
+					<div class="artwork-overlay" aria-hidden="true"></div>
 			</section>
 
 			<section
-				class="gallery-panel"
-				id="gallery"
-				aria-labelledby="gallery-title"
-			>
-				<header>
-					<a
-						href="/collections"
-						class="collection-link"
-						id="gallery-title"
-					>
-						Colecciónes
-					</a>
-				</header>
+					class="gallery-panel"
+					id="gallery"
+					aria-labelledby="gallery-title"
+				>
+					<header>
+						<a
+							href="/collections"
+							class="collection-link"
+							id="gallery-title"
+						>
+							Colecciónes
+						</a>
+					</header>
 
-				<div class="gallery-copy">
-					<p>
-						Un archivo de formas, materia y contraste. Cada pieza nace de explorar
-						lo que aparece cuando la luz toca la oscuridad.
-					</p>
-					<p class="translation">
-						An archive of form, matter and contrast. Select the work to discover
-						the story behind its surface.
-					</p>
-				</div>
+					<div class="gallery-copy">
+						<p>
+							Un archivo de formas, materia y contraste. Cada pieza nace de explorar
+							lo que aparece cuando la luz toca la oscuridad.
+						</p>
+						<p class="translation">
+							An archive of form, matter and contrast. Select the work to discover
+							the story behind its surface.
+						</p>
+					</div>
 
-				<footer class="gallery-footer">
-					<span>Obsidian Art</span>
-					<span>Arequipa, PE</span>
-				</footer>
+					<footer class="gallery-footer">
+						<span>Obsidian Art</span>
+						<span>Arequipa, PE</span>
+					</footer>
 			</section>
 		</main>
 </BaseLayout>
 
 <style>
-	:global(.home-body) {
-		margin: 0;
-		background: var(--color-paper);
-		font-family: var(--font-sans);
-		font-weight: 300;
-		color: var(--color-ink);
-	}
-
 	.home-page {
 		display: flex;
 		min-height: 100svh;
@@ -114,7 +98,7 @@ const navigation = [
 		background: var(--color-paper);
 	}
 
-	.sidebar {
+	.home-aside {
 		display: flex;
 		flex-direction: column;
 		padding: 20px;
@@ -123,7 +107,6 @@ const navigation = [
 
 	.site-nav { margin-top: 8px; }
 	.site-nav ul { display: grid; grid-template-columns: repeat(2, 1fr); margin: 0; padding: 0; list-style: none; }
-
 	.nav-link {
 		display: inline-block;
 		padding-block: 4px;
@@ -134,16 +117,14 @@ const navigation = [
 		text-transform: uppercase;
 		transition: color 200ms, transform 200ms;
 	}
-
 	.nav-link,
-	.sidebar-meta a,
+	.aside-meta a,
 	.collection-link { color: inherit; text-decoration: none; }
 	.nav-link { color: var(--color-ink-muted); }
 	.nav-link.is-current { font-weight: 500; color: var(--color-ink); }
 	.nav-link:hover,
 	.nav-link:focus-visible { transform: translateX(6px); color: var(--color-accent); }
-
-	.sidebar-meta { display: none; }
+	.aside-meta { display: none; }
 
 	.featured-artwork {
 		position: relative;
@@ -236,14 +217,14 @@ const navigation = [
 
 	@media (min-width: 681px) {
 		.home-page { display: grid; grid-template-columns: 230px minmax(0, 1fr); }
-		.sidebar { min-height: 100svh; padding: 34px clamp(28px, 3.4vw, 66px) 42px; }
+		.home-aside { min-height: 100svh; padding: 34px clamp(28px, 3.4vw, 66px) 42px; }
 		.site-nav { margin-top: 192px; }
 		.site-nav ul { display: block; }
 		.nav-link { font-size: clamp(20px, 1.4vw, 28px); }
-		.sidebar-meta { display: grid; gap: 34px; margin-top: auto; font-size: 14px; color: var(--color-ink-subtle); }
+		.aside-meta { display: grid; gap: 34px; margin-top: auto; font-size: 14px; color: var(--color-ink-subtle); }
 		.meta-title { margin: 0 0 8px; font-size: 16px; color: var(--color-ink); }
-		.sidebar-meta a:hover,
-		.sidebar-meta a:focus-visible { color: var(--color-accent); }
+		.aside-meta a:hover,
+		.aside-meta a:focus-visible { color: var(--color-accent); }
 		.social-links { display: flex; gap: 9px; margin: 0; }
 		.featured-artwork,
 		.featured-artwork img { min-height: 100svh; }

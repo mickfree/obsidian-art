@@ -42,10 +42,9 @@ const materials = [
 <BaseLayout
 	title="Obsidiana — Materiales | Obsidian Art"
 	description="Origen, curiosidades y simbolismo protector de la obsidiana, el vidrio volcánico nacido del fuego."
-	bodyClass="materials-body"
 >
 	<main class="materials-page">
-		<header class="site-header border-b">
+		<header class="site-header">
 			<a class="wordmark" href="/">Obsidian Art</a>
 			<p>Materiales</p>
 		</header>
@@ -62,18 +61,12 @@ const materials = [
 </BaseLayout>
 
 <style>
-	:global(.materials-body) {
-		margin: 0;
-		background: #f2f0eb;
-		font-family: var(--font-sans);
-		color: var(--color-ink);
-	}
 
 	.materials-page {
 		display: flex;
 		min-height: 100svh;
 		flex-direction: column;
-		padding: 4px clamp(20px, 3vw, 58px) 28px;
+		padding: 24px clamp(20px, 3vw, 58px) 28px;
 	}
 
 	.site-header {
